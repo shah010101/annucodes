@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define cc  \
+  int t;    \
+  cin >> t; \
+  while (t--)
+#define print                 \
+  for (int i = 0; i < n; i++) \
+  {                           \
+    cout << arr[i] << ' ';    \
+  }
+#define int long long
+#define loop for (int i = 0; i < n; i++)
+signed main()
+{
+  string ques, ans;
+  cin >> ques >> ans;
+  unordered_map<int, int> ques_count;
+  unordered_map<int, int> ans_count;
+  for (int i = 0; i < ans.size(); i++)
+  {
+    ans_count[ans[i]]++;
+  }
+  int n = ques.size();
+  int k = ans.size();
+  int countans = ans.size();
+  int i = 0;
+  int j = 0;
+  int count = 0;
+  int ouranscount = 0;
+  if (ans_count.find(ques[0]) != ans_count.end())
+  {
+    ques_count[ques[0]]++;
+    if (ques_count[ques[0]] <= ans_count[ques[0]])
+    {
+      count++;
+    }
+  }
+  while (j < n)
+  {
+    while (j - i + 1 < k)
+    {
+      j++;
+      if (ans_count.find(ques[j]) != ans_count.end())
+      {
+        ques_count[ques[j]]++;
+        if (ques_count[ques[j]] <= ans_count[ques[j]])
+        {
+          count++;
+        }
+      }
+    }
+    if (j - i + 1 == k)
+    {
+      if (count == countans)
+      {
+        ouranscount++;
+      }
+    }
+    if (ans_count.find(ques[i]) != ans_count.end())
+    {
+      if (ques_count[ques[i]] <= ans_count[ques[i]])
+      {
+        count--;
+      }
+      ques_count[ques[i]]--;
+    }
+    i++;
+  }
+  cout << ouranscount << endl;
+  return 0;
+}
